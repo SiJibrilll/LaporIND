@@ -7,6 +7,12 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Silahkan masukan username dan password</h1>
+    <h1>Selamat datang di halaman beranda</h1>
+    @auth
+    <form action="/logout" method="POST">
+        @csrf
+        <button type="submit">Logout</button>
+    </form>    
+    @endauth
 </body>
 </html>
