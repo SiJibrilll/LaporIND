@@ -55,8 +55,12 @@
             <input type="text" placeholder="Email" name="email" required>
             <input type="password" placeholder="Password" name="password" required>
             <button type="submit">Login</button>
+            <br>
+            <span>Atau</span>
+            <br>
+            <a href="/auth/redirect">Masuk dengan google</a>
 
-            <p>Belum pernah daftar? <a href="/register">daftar sekarang</a></p>
+            <p>Belum pernah daftar? <a href="/auth/redirect">daftar sekarang</a></p>
         </form>
     </div>
 </body>

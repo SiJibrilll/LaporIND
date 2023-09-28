@@ -19,9 +19,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
+        'image',
+        'oAuth_id',
+        'oAuth_type',
     ];
 
     /**
@@ -43,4 +46,32 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    // relasi dengan data pelapor
+
+    function data_pelapor() {
+        return $this->hasOne(Data_pelapor::class, 'user_id');
+    }
+
+
+    // relasi dengan data instansi
+    function data_instansi() {
+        return $this->hasOne(Data_instansi::class, 'user_id');
+    }
+
+    // relasi dengan aduan
+    function aduan() {
+        return $this->hasMany(Aduan::class, 'user_id');
+    }
+
+    // relasi dengan nitifikasi aduan
+    function notifikasi_aduan() {
+        return $this->hasMany(Notifikasi_aduan::class, 'user_id');
+    }
+
+    // relasi dengan admin log
+    function admin_log() {
+        return $this->hasMany(Admin_log::class, 'user_id');
+    }
+
 }
