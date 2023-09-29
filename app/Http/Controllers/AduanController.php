@@ -31,8 +31,8 @@ class AduanController extends Controller
         'judul' => 'required',
         'deskripsi' => 'required',
         'alamat' => 'required',
-        'kategori' => 'required',
-        'subkategori' => 'required',
+        'kategori' => 'required|exists:kategoris,id',
+        'subkategori' => 'required|exists:sub_kategoris,id',
         'image.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust file type and size as needed
     ]);
 
