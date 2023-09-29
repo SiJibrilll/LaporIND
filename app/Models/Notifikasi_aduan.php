@@ -15,8 +15,6 @@ class Notifikasi_aduan extends Model
         'aduan_id',
     ];
 
-    protected $table = "notifikasi_aduan";
-
     // relasi dengan aduan
     function aduan() {
         return $this->belongsTo(Aduan::class, 'aduan_id');

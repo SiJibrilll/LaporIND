@@ -18,7 +18,6 @@ class Aduan extends Model
         'sub_kategori_id',
     ];
 
-    protected $table = "aduan";
 
     // relasi dengan user
     function user(){

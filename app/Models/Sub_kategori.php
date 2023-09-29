@@ -14,8 +14,6 @@ class Sub_kategori extends Model
         'kategori_id',
     ];
 
-    protected $table = "sub_kategori";
-
     function kategori() {
         return $this->belongsTo(Kategori::class, 'kategori_id');
     }

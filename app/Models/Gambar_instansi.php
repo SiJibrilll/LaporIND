@@ -14,6 +14,4 @@ class Gambar_instansi extends Model
         'data_instansi_id',
     ];
 
-    protected $table = "gambar_instansi";
-
 }

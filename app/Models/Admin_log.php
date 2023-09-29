@@ -14,8 +14,6 @@ class Admin_log extends Model
         'user_id',
     ];
 
-    protected $table = "admin_log";
-
     // relasi dengan user
     function user() {
         return $this->belongsTo(User::class, 'user_id');

@@ -69,9 +69,11 @@ Route::group(['middleware' => ['role:pelapor']], function () {
     Route::post('/dataPelapor/create', [DataPelaporController::class, 'create']);
 
     // kirim pelapor ke halaman form aduan
-    Route::get('/aduan', [AduanController::class, 'index'])->middleware('auth')->middleware('dataLengkap');
+    Route::get('/aduan', [AduanController::class, 'index'])->middleware('dataLengkap');
+    
+    // -- create aduan
+    Route::post('/aduan/create', [AduanController::class, 'create'])->middleware('dataLengkap');
 });
-
 
 // === harus punya role instansi
 Route::group(['middleware' => ['role:instansi']], function () {

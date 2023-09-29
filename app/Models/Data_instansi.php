@@ -17,7 +17,6 @@ class Data_instansi extends Model
     'kategori_id',
     ];
 
-    protected $table = "data_instansi";
 
     // relasi dengan user
     function user() {
