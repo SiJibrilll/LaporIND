@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AduanController;
 use App\Http\Controllers\DataPelaporController;
+use App\Http\Controllers\GoogleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPelaporController;
@@ -25,30 +26,27 @@ Route::get('/', function () {
 
 
 // -- kirim user pelapor ke halaman login
-Route::get('login', [UserController::class, 'login'])->name('login');
-
-
-// -- SSO sign in
-Route::get('/auth/redirect', [UserController::class, 'redirectToGoogle']);
-
-// -- register atau login user
-Route::get('/auth/google/callback', [UserController::class, 'create']);
-
+Route::get('login', [UserController::class, 'login'])->name('login')->middleware('guest');
 
 // -- login manual user ke aplikasi
 Route::post('/authenticate', [UserController::class, 'authenticate']);
 
+// -- SSO sign in
+Route::get('/auth/redirect', [GoogleController::class, 'redirect']);
+
+// -- register atau login user
+Route::get('/auth/google/callback', [GoogleController::class, 'callback']);
+
 
 // === harus login dulu
 Route::group(['middleware' => ['auth']], function () {
-
     // -- logout user pelapor
     Route::post('/logout', [UserController::class, 'logout']);
 });
 
 
 // === harus punya role pelapor
-Route::group(['middleware' => ['role:pelapor']], function () {
+Route::group(['middleware' => ['role:pelapor', 'auth']], function () {
 
     // -- kirim user ke halaman profil
     Route::get('/users/profil', [UserController::class, 'show']);
@@ -60,7 +58,7 @@ Route::group(['middleware' => ['role:pelapor']], function () {
     Route::put('/users/update', [UserController::class, 'update']);
 
     // kirim user pelapor ke beranda
-    Route::get('/beranda', [UserPelaporController::class, 'beranda']);
+    Route::get('/beranda', function() {return view('pelapor.beranda');});
 
     // -- kirim user ke halaman lengkapi data
     Route::get('/dataPelapor', [DataPelaporController::class, 'index']);
@@ -76,7 +74,7 @@ Route::group(['middleware' => ['role:pelapor']], function () {
 });
 
 // === harus punya role instansi
-Route::group(['middleware' => ['role:instansi']], function () {
+Route::group(['middleware' => ['role:instansi' ,'auth']], function () {
     // --- testing instansi
     Route::get('/instansi', function () {
         dd('kamu instansi');
@@ -85,12 +83,12 @@ Route::group(['middleware' => ['role:instansi']], function () {
 
 
 // === harus punya role admin
-Route::group(['middleware' => ['role:admin']], function () {
+Route::group(['middleware' => ['role:admin', 'auth']], function () {
     // -- admin dashboard
     Route::get('/admin', [AdminController::class, 'index']);
 
     // -- view list users (testing)
-    Route::get('/admin/users/pelapor/list', [UserController::class, 'read']);
+    Route::get('/admin/users/pelapor/list', [UserController::class, 'index']);
 
     // -- show data pelapor
     Route::get('/dataPelapor/{user}/show', [DataPelaporController::class, 'show']);

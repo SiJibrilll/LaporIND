@@ -12,4 +12,5 @@
     <a href="/aduan">Buat aduan</a>
     <a href="">Aduan saya</a>
     <a href="/users/read">Lihat user</a>
+    <a href="/users/profil">Lihat profil</a>
 </x-layout>
